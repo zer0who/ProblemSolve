@@ -1,0 +1,5 @@
+A, B = map(int, input().split())
+list_A = set(map(int, input().split()))
+list_B = set(map(int, input().split()))
+result = list(list_A ^ list_B)
+print(len(result))
