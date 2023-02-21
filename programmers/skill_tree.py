@@ -23,3 +23,15 @@ def solution(skill, skill_trees):
         
             
     return answer
+def sample():
+    sample = ["a", "b", "c", "D", "e"]
+    flag = True
+    for i in range(len(sample)):
+        if sample[i].isupper():
+            flag = False
+            break
+
+    if flag:
+        print("모두 소문자")
+    else:
+        print("대문자 포함")
