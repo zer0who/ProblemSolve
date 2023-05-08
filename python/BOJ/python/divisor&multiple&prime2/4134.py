@@ -1,4 +1,4 @@
-def isPrime(num: int) -> int:
+def isPrime(num: int) -> bool:
     if num == 0 or num == 1:
         return False
     for i in range(2, int(num**(1/2))+1):
