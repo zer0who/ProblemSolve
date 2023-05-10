@@ -13,7 +13,6 @@ def main():
             continue
         chatted_user[string] = 1
         ans += 1
-            
     
     print(ans)
 
