@@ -11,8 +11,6 @@ def main():
                 count_arr[i][j] = count_arr[i-1][j-1]
             else:
                 count_arr[i][j] = count_arr[i-1][j-1] + count_arr[i-1][j+1]
-
-    print(count_arr[:N+1])
     
     print(sum(count_arr[N])%1000000000)
     
