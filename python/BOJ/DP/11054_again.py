@@ -11,7 +11,7 @@ def main():
             if reverse_numbers[i] > reverse_numbers[j]:
                 desc[i] = max(desc[i], desc[j]+1)
     ans = [asc[i] + desc[::-1][i] for i in range(n)]
-    print(max(ans)-1)
+    print(max(ans)-1)   # 중복되는 하나(기준 원소)를 빼줘야 함.
 
 
 if __name__ == "__main__":
