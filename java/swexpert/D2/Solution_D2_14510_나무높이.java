@@ -23,30 +23,7 @@ public class Solution_D2_14510_나무높이 {
             initTrees(br);
             Arrays.sort(trees); // 나무 높이순 정렬
             highest = trees[N-1];   // 가장 높이가 높은 나무의 높이 저장
-            int day = 1;    // 날짜 카운트
-            while (trees[0] != highest) {   // 나무들 높이가 다 같아질 때까지
-                if (day % 2 == 1) { // 홀수 날 => 나무 높이 1증가
-                    if (trees[1] == highest) {  // 물 줘야할 나무가 한 개 남았을 때
-                        if ((highest - trees[0]) != 2) {    // 높이 딱 2남은 거 아니면 물 주면 됨
-                            trees[0] += 1;
-                            continue;
-                        }
-                    }
 
-
-                } else if (day % 2 == 0){    // 짝수 날 => 나무 높이 2증가
-                    if (trees[1] == highest) {  // 물 줘야할 나무가 한 개 남았을 때
-                        if ((highest - trees[0]) > 2) {    // 높이 딱 2남은 거 아니면 물 주면 됨
-                            trees[0] += 2;
-                            continue;
-                        }
-                    }
-
-
-                }
-                Arrays.sort(trees); // 나무 높이순 정렬
-                day += 1;
-            }
 
             sb.append("\n");
         }
