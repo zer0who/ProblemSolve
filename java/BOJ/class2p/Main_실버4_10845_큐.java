@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Queue;
-import java.util.StringTokenizer;
 
 public class Main_실버4_10845_큐 {
 
