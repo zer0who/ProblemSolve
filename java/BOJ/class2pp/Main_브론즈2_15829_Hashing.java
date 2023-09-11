@@ -15,13 +15,11 @@ public class Main_브론즈2_15829_Hashing {
 
     private static long hash(int L, String input) {
         long res = 0;
+        long powNum = 1;
         for (int i = 0; i < L; i++) {
             int num = input.charAt(i)-96;
-            long powNum = 1;
-            for (int j = 0; j < i; j++) {
-                powNum = (powNum*31)%1234567891;
-            }
             res += (num*powNum);
+            powNum = (powNum*31)%1234567891;
         }
 
         return res%1234567891;
