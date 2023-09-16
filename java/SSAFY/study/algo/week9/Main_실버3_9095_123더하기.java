@@ -1,4 +1,4 @@
-package BOJ.class3;
+package SSAFY.study.algo.week9;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
