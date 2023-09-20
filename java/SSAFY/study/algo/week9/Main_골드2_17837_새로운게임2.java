@@ -100,7 +100,7 @@ public class Main_골드2_17837_새로운게임2 {
         return where;
     }
 
-    private static void movePieces(int nextRow, int nextCol, List<Integer> movePieces, int i) {
+    private static void movePieces(int nextRow, int nextCol, List<Integer> movePieces, int i) { // 칸에 있는 리스트에서 옮겨야하는 말들 옮기는 함수
         int movePieceIdx = movePieces.get(i);
         pieceBoard[nextRow][nextCol].add(movePieceIdx);
         pieces[movePieceIdx].row = nextRow;
@@ -142,10 +142,12 @@ public class Main_골드2_17837_새로운게임2 {
 
             nextRow = turnPieceRow + dirRow[turnPieceDir];  // 방향 전환 후 말이 움직일 행 reset
             nextCol = turnPieceCol + dirCol[turnPieceDir];  // 방향 전환 후 말이 움직일 열 reset
+            if (isOuted(nextRow, nextCol) || board[nextRow][nextCol] == 2) return false;    // 방향 바꾸고 나서도 범위 밖으로 나가거나 파란 칸이면 턴 종료
+            else {  // 방향 바꾸고 나서는 파란 칸이나 범위 바깥이 아니라면
+                doMove(wherePiece, turnPieceRow, turnPieceCol, nextRow, nextCol);
+            }
         }
-
-        if (isOuted(nextRow, nextCol) || board[nextRow][nextCol] == 2) return false;    // 방향 바꾸고 나서도 범위 밖으로 나가거나 파란 칸이면 턴 종료
-        else {  // 방향 바꾸고 나서는 파란 칸이나 범위 바깥이 아니라면
+        else {  // 처음부터 움직일 칸이 흰 칸이나 빨간 칸이라면
             doMove(wherePiece, turnPieceRow, turnPieceCol, nextRow, nextCol);
         }
 
