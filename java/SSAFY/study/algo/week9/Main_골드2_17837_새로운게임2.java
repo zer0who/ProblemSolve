@@ -135,10 +135,11 @@ public class Main_골드2_17837_새로운게임2 {
         int nextRow = turnPieceRow + dirRow[turnPieceDir];  // 말이 움직일 행
         int nextCol = turnPieceCol + dirCol[turnPieceDir];  // 말이 움직일 열
         if (isOuted(nextRow, nextCol) || board[nextRow][nextCol] == 2) {    // 나가는 경우는 파란색과 같은 취급, 방향 반대로 하고 한 칸 이동
-            if (turnPieceDir == 1) turnPieceDir = 2;
-            else if (turnPieceDir == 2) turnPieceDir = 1;
-            else if (turnPieceDir == 3) turnPieceDir = 4;
-            else if (turnPieceDir == 4) turnPieceDir = 3;
+            if (turnPieceDir == 1) turnPiece.dir = 2;
+            else if (turnPieceDir == 2) turnPiece.dir = 1;
+            else if (turnPieceDir == 3) turnPiece.dir = 4;
+            else if (turnPieceDir == 4) turnPiece.dir = 3;
+            turnPieceDir = turnPiece.dir;	// 수정된 방향으로 reset
 
             nextRow = turnPieceRow + dirRow[turnPieceDir];  // 방향 전환 후 말이 움직일 행 reset
             nextCol = turnPieceCol + dirCol[turnPieceDir];  // 방향 전환 후 말이 움직일 열 reset
@@ -155,6 +156,5 @@ public class Main_골드2_17837_새로운게임2 {
 
         return false;
     }
-
 
 }
