@@ -8,8 +8,10 @@ import java.util.*;
 public class Main_골드2_4195_친구네트워크 {
 
     static int F;
+    static int idx;	// 해쉬맵의 value가 될 인덱스
     static HashMap<String, Integer> friends;
-    static int[] firstFriend;   // 각 친구의 대장 친구
+    static int[] friendRoot;	// 각 친구의 대장 친구
+    static int[] count;	// 친구 수 적은 쪽으로 합치기 위한 count 배열
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,51 +23,47 @@ public class Main_골드2_4195_친구네트워크 {
         System.out.println(sb);
     }
 
-    static int find(int a) {
-        if (a == firstFriend[a]) return a;
+    static int find(int idx) {	// 대장 친구 인덱스 찾기
+        if (idx == friendRoot[idx]) return idx;
 
-        return firstFriend[a] = find(firstFriend[a]);
+        return friendRoot[idx] = find(friendRoot[idx]);
     }
 
-    static int union(int a, int b) {    // 왼쪽 친구가 오른쪽 친구보다 대장 친구
-        int aFirst = find(a);
-        int bFirst = find(b);
+    static int union(int a, int b) {	// a 친구와 b 친구 네트워크 합치기
+        int aRoot = find(a);
+        int bRoot = find(b);
 
+        friendRoot[bRoot] = aRoot;
+
+        StringBuilder sb = new StringBuilder();
         int cnt = 0;
-
-        firstFriend[bFirst] = aFirst;
-        for (int i = 0; i < firstFriend.length; i++) {
-            if (firstFriend[i] == aFirst) cnt += 1;
+        for (int i = 0; i < idx; i++) {	// 현재 입력된 친구까지 탐색
+            if (friendRoot[i] == bRoot) friendRoot[i] = aRoot;	// 합쳐진 친구의 원래 친구도 새로운 네트워크로 합침
+            if (friendRoot[i] == aRoot) cnt += 1;
         }
 
         return cnt;
     }
 
-    static int calcFriendNetwork(String firstName, String secondName) {
-        int count = 0;  // 리턴해줄 친구네트워크 안의 친구 수
-        int idx = 0;
-        if (!friends.containsKey(firstName)) {
-            friends.put(firstName, idx++);
-        }
-        if (!friends.containsKey(secondName)) {
-            friends.put(secondName, idx++);
-        }
-        count = union(friends.get(firstName), friends.get(secondName));
-
-        return count;
-    }
-
     static String init(BufferedReader br) throws IOException {
         F = Integer.parseInt(br.readLine());
+        idx = 0;
         friends = new HashMap<>();
-        firstFriend = new int[1000001]; // 10만개 까지 주어진다고 했으므로
+        friendRoot = new int[200001];	// 관계 수 10만개(x2)까지 주어진다고 했으므로 이 값으로 초기화
+        count = new int[200001];
+        for (int i = 0; i < friendRoot.length; i++) {
+            friendRoot[i] = i;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < F; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             String firstName = st.nextToken();
             String secondName = st.nextToken();
-            sb.append(calcFriendNetwork(firstName, secondName));
-            sb.append("\n");
+            if (!friends.containsKey(firstName)) friends.put(firstName, idx++);	// 해쉬맵에 인덱스가 저장돼있지 않으면 저장하기
+            if (!friends.containsKey(secondName)) friends.put(secondName, idx++);
+
+            sb.append(union(friends.get(firstName), friends.get(secondName))).append("\n");
         }
 
         return sb.toString();
