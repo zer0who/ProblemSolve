@@ -51,7 +51,7 @@ public class Main_실버1_6064_카잉달력 {
     static long kaing() {
         long endYear = calcLSM();    // 카잉 달력의 마지막 해 -> M, N의 최소 공배수(처음으로 x, y가 M, N으로 맞춰지는 순간이니까)
         long cnt = 1;   // 1년부터 시작
-        while (true) {
+        while (true) {  // -> while문으로 돌면 반례 보니까 16억 번도 돔. 시간초과 나는 게 당연
             if (cnt > endYear) return -1;
             if ((cnt % M) == x % M && (cnt % N) == y % N) break;
             cnt += 1;
