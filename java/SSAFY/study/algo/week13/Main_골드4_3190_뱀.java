@@ -61,8 +61,7 @@ public class Main_골드4_3190_뱀 {
     }
 
     static boolean isDied(int row, int col) {   // 벽이나 자기 자신의 몸과 부딪히면 게임 종료
-        if ((row == 0 || row == N) || (col == 0 || col == N)) return true;  // 이동한 곳이 벽이면 종료
-        else if (snakeBody[row][col]) return true;  // 자기 몸에 부딪히면 종료
+        if ((row == 0 || row == N) || (col == 0 || col == N) || snakeBody[row][col]) return true;  // 이동한 곳이 벽이거나 자기 몸이면 종료
 
         return false;
     }
@@ -76,6 +75,7 @@ public class Main_골드4_3190_뱀 {
 
         if (apples.contains(movedHead)) {   // 이동한 칸이 사과라면
 
+            apples.remove(movedHead);
         } else {    // 사과가 아니라면 꼬리 이동
 
         }
