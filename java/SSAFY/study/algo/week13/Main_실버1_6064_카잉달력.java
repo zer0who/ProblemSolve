@@ -50,14 +50,12 @@ public class Main_실버1_6064_카잉달력 {
 
     static long kaing() {
         long endYear = calcLSM();    // 카잉 달력의 마지막 해 -> M, N의 최소 공배수(처음으로 x, y가 M, N으로 맞춰지는 순간이니까)
-        long cnt = 1;   // 1년부터 시작
-        while (true) {  // -> while문으로 돌면 반례 보니까 16억 번도 돔. 시간초과 나는 게 당연
-            if (cnt > endYear) return -1;
-            if ((cnt % M) == x % M && (cnt % N) == y % N) break;
-            cnt += 1;
+        int cnt = x;
+        while (true) {  // cnt를 1씩 증가시키며 cnt % M == x % M이며 cnt % N == y % N인 cnt 값을 찾으면 되지만, 시간이 너무 오래 걸림 -> cnt의 초기값을 x로 두고 M씩 증가시킴, y에 대해서만 판별
+            if (cnt > endYear) return -1;   // 마지막 해 넘으면 -1 리턴
+            if ((cnt % N) == y % N) return cnt;   // 정답 조건: 해당 해를 N으로 나누었을 때의 나머지가 구하고자 하는 해의 N으로 나누었을 때의 나머지와 같을 때
+            cnt += M;
         }
-
-        return cnt;
     }
 
 
