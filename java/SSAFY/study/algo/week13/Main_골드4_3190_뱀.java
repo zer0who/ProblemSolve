@@ -39,7 +39,7 @@ public class Main_골드4_3190_뱀 {
     public static void main(String[] args) throws IOException {
         init();
         Snake initialSnake = new Snake(new int[] {0, 0}, new int[] {0, 0}, dirMap.get("R"));
-
+        playDummy(initialSnake, 0);
     }
 
     static void init() throws IOException {
