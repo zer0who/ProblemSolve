@@ -28,7 +28,6 @@ public class Main_실버1_6064_카잉달력 {
         x = Integer.parseInt(st.nextToken());
         y = Integer.parseInt(st.nextToken());
     }
-
     static int calcGCD(int n1, int n2) {    // 유클리드 호제법을 이용한 최대 공약수 구하기
         int r = 0;
         while (n2 > 0) {
