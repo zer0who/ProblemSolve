@@ -18,7 +18,7 @@ public class Main_골드5_1107_리모컨 {
         if (N == START_CHANNEL) System.out.println(0);  // 목적 채널이 시작 채널이면 0 출력
 //        else if (M == 0) System.out.println(min);  // 고장난 버튼이 0개이면 중복조합 없이 목적지 채널 숫자 수 출력
         else if (broken.size() == 10) System.out.println(min);
-        else {  // 중복조합으로 가장 가까운 채널 구해서, 그 채널과 목적지 채널의 차이를 더해준 것 출력
+        else {
             goChannel();
             System.out.println(min);
         }
