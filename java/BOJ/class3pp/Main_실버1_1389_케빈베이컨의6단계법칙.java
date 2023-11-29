@@ -25,8 +25,6 @@ public class Main_실버1_1389_케빈베이컨의6단계법칙 {
                     temp += cnt;
                 }
             }
-            System.out.println(temp);
-            System.out.println("=====" + i + "번 유저 종료=====");
 
             if (answer > temp) {
                 answer = temp;
@@ -52,7 +50,6 @@ public class Main_실버1_1389_케빈베이컨의6단계법칙 {
     }
 
     static int bfs(int start, int end) {   // start번에서 end번으로 가는 케빈 베이컨 수 카운트
-        System.out.println(start+ "번의 " + end + "로 카운팅 시작");
         int result = 0;
         boolean[] isVisited = new boolean[N+1];
         Queue<Integer> queue = new ArrayDeque<>();
@@ -65,16 +62,16 @@ public class Main_실버1_1389_케빈베이컨의6단계법칙 {
             for (int q = 0; q < queueSize; q ++) {
                 int nowUser = queue.poll();
                 for (int i = 1; i < N+1; i++) {
+                    if (i == nowUser) continue;
                     int linked = adj[nowUser][i];
                     if (linked == 0) continue;
-                    else if (isVisited[linked]) continue;
+                    else if (isVisited[i]) continue;
                     if (i == end) return result;
-                    queue.offer(linked);
-                    isVisited[linked] = true;
+                    queue.offer(i);
+                    isVisited[i] = true;
                 }
             }
         }
-        System.out.println("결과: " + result);
 
         return result;
     }
