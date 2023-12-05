@@ -23,6 +23,7 @@ public class PGMS_LV2_호텔대실 {
                     return o1[0].compareTo(o2[0]);
                 }
             });
+            if (book_time.length == 1) return 1;
             usingRooms.add(book_time[0]);
             usedRoomCount += 1; // 맨 처음에는 방 하나를 사용했으므로 카운트 +1
             countRooms(book_time);
@@ -41,13 +42,17 @@ public class PGMS_LV2_호텔대실 {
                 cleanEndHour += 1;
                 cleanEndMinute -= 60;
             }
-            cleanEndTime = cleanEndHour + ":" + cleanEndMinute;
+            String cleanEndHourStr = String.valueOf(cleanEndHour);
+            String cleanEndMinuteStr = String.valueOf(cleanEndMinute);
+            if (cleanEndHour < 10) cleanEndHourStr = "0" + cleanEndHourStr;
+            if (cleanEndMinute < 10) cleanEndMinuteStr = "0" + cleanEndMinuteStr;
+            cleanEndTime = cleanEndHourStr + ":" + cleanEndMinuteStr;
 
             return cleanEndTime;
         }
 
         void countRooms(String[][] book_time) {
-            System.out.println(Arrays.toString(usingRooms.get(0)));
+
             for (int i = 1; i < book_time.length; i++) {    // 두 번째 방부터 방 개수 카운팅 시작
                 boolean canEnterFlag = false;   // 사용 중이었던 방 중 입실 가능한 방이 있는지 체크하는 변수
                 int canEnterIdx = -1;   // 입실 가능한 방의 인덱스 저장하는 변수
