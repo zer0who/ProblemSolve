@@ -11,7 +11,7 @@ public class Main_골드4_9019_DSLR {
     static int B;
     static int minCount;    // 최소 횟수 저장할 변수
     static List<String> command;  // 최소 횟수에서의 명령어
-    static List<Integer> isVisited; // 이미 만들었던 숫자인지 체크
+    static boolean[] isVisited; // 이미 만들었던 숫자인지 체크
 
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -34,7 +34,7 @@ public class Main_골드4_9019_DSLR {
         B = Integer.parseInt(st.nextToken());
         minCount = Integer.MAX_VALUE;
         command = new ArrayList<>();
-        isVisited = new ArrayList<>();
+        isVisited = new boolean[10001];
     }
 
     static int rotateA(int a, String command) {
@@ -55,39 +55,43 @@ public class Main_골드4_9019_DSLR {
 
         String result = "";
         while (!deque.isEmpty()) result += deque.poll();
-        System.out.println(result);
 
         return Integer.parseInt(result);
     }
 
     static void dfs(int a, int cnt, List<String> tempCommand) { // A가 B와 같아질 때까지 시도하는 함수
-        if (isVisited.contains(a)) return;  // 이미 만들었던 수인지 체크하기 위한 조건
+        if (isVisited[a]) return;
         if (a == B) {   // 기저, a가 b와 같아짐
+            System.out.println("answer: " + a);
+            System.out.println(cnt);
             if (cnt < minCount) {
                 minCount = cnt;
-                command = tempCommand;
+                command = new ArrayList<>();
+                for (int i = 0; i < tempCommand.size(); i++) {
+                    command.add(tempCommand.get(i));
+                }
             }
 
             return;
         }
-        isVisited.add(a);
+        isVisited[a] = true;
 
         // case D
         tempCommand.add("D");
         dfs((a*2) % 10000, cnt+1, tempCommand);
-        tempCommand.remove(tempCommand.size()-1);
+        tempCommand.remove(cnt);
         // case S
         tempCommand.add("S");
         dfs((a == 0) ? 9999:a-1, cnt+1, tempCommand);
-        tempCommand.remove(tempCommand.size()-1);
+        tempCommand.remove(cnt);
         // case L
         tempCommand.add("L");
         dfs(rotateA(a, "L"), cnt+1, tempCommand);
-        tempCommand.remove(tempCommand.size()-1);
+        tempCommand.remove(cnt);
         // case R
         tempCommand.add("R");
         dfs(rotateA(a, "R"), cnt+1, tempCommand);
-        tempCommand.remove(tempCommand.size()-1);
+        tempCommand.remove(cnt);
     }
 
 }
