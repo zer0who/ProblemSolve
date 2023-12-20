@@ -53,20 +53,15 @@ public class Main_골드4_1461_도서관 {
     }
 
     static void checkDistance() {   // 음수 좌표, 양수 좌표 모두 m으로 나누어 떨어지는지 체크, 안 나누어 떨어지면 m 안채우고 갔다왔을 때 나누어 떨어지게 하는 구간 체크
-//        System.out.println(Arrays.toString(bookAxisMinus));
-//        System.out.println(Arrays.toString(bookAxisPlus));
         int minusEndIdx = bookAxisMinus.length - 1;
         int plusEndIdx = bookAxisPlus.length - 1;
         int minusAxis = (bookAxisMinus.length % M) - 1;   // 인덱스 처리 위해 -1
         int plusAxis = (bookAxisPlus.length % M) - 1;
         if (minusAxis == -1) minusAxis += M;
         if (plusAxis == -1) plusAxis += M;
-//        System.out.println(minusEndIdx + " " + plusEndIdx);
-//        System.out.println("===========");
 
         while (true) {
             if (minusAxis > minusEndIdx && plusAxis > plusEndIdx) break;    // 종료 조건: 모든 책을 제자리에 뒀을 경우
-//            System.out.println(minusAxis + " " + plusAxis);
 
             if (plusAxis > plusEndIdx) {  // 무조건 음수쪽 책 제자리에 두러 가기
                 if (minusAxis == minusEndIdx) isLast = true;    // 마지막 두는 책인지 체크
@@ -83,9 +78,6 @@ public class Main_골드4_1461_도서관 {
             } else if (Math.abs(bookAxisMinus[minusAxis]) > bookAxisPlus[plusAxis]) {
                 plusAxis = plusDistance(bookAxisPlus, plusAxis);
             }
-//            System.out.println(minusAxis + " " + plusAxis);
-//            System.out.println(answer);
-//            System.out.println("==========");
         }
         System.out.println(answer);
     }
