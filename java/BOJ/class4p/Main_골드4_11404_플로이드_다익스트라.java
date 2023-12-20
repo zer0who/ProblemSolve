@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main_골드4_11404_플로이드 {
+public class Main_골드4_11404_플로이드_다익스트라 {
 
     static class Bus implements Comparable<Bus> {
         int from;
