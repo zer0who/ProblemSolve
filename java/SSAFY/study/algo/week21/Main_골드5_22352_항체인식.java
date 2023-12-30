@@ -63,7 +63,7 @@ public class Main_골드5_22352_항체인식 {
 
     static void bfs(int r, int c) {
         if (before[r][c] != after[r][c]) diffCount += 1;
-        if (diffCount >= 2) {
+        if (diffCount >= 2) {   // 변한 섹션이 두 개 이상이면 CPCU가 아님
             isCPCU = false;
             return;
         }
@@ -80,7 +80,7 @@ public class Main_골드5_22352_항체인식 {
                 int nextRow = now[0] + dirRow[d];
                 int nextCol = now[1] + dirCol[d];
                 if (isOuted(nextRow, nextCol) || isVisited[nextRow][nextCol] || before[now[0]][now[1]] != before[nextRow][nextCol]) continue;
-                if (after[nextRow][nextCol] != afterVaccine) {
+                if (after[nextRow][nextCol] != afterVaccine) {  // 한 섹션 내에서 데이터가 두 번 이상 변해도 CPCU가 아님
                     isCPCU = false;
                     return;
                 }
