@@ -67,10 +67,12 @@ public class Main_골드4_1504_특정한최단경로 {
         for (int i = 1; i < N+1; i++) {
             if (distArr[1][i] == 0) continue;   // 출발점에서 이어지지 않은 곳은 패스
             pq.offer(new Sejun(1, i, distArr[1][i], new boolean[2]));
+            minimumDist[i] = distArr[1][i];
         }
 
         while (!pq.isEmpty()) {
             Sejun now = pq.poll();
+            System.out.println(Arrays.toString(minimumDist));
             if (now.to == N) {
                 if (!(now.havePassed[0] && now.havePassed[1])) continue;    // 반드시 거쳐야하는 두 점을 안거쳤으면 다음 반복문으로
                 answer = Math.min(answer, now.totalDist);
@@ -78,8 +80,13 @@ public class Main_골드4_1504_특정한최단경로 {
 
             for (int i = 1; i < N+1; i++) {
                 if (distArr[now.to][i] == 0) continue;
-
-
+                if (minimumDist[i] > minimumDist[now.to] + distArr[now.to][i]) {
+                    minimumDist[i] = minimumDist[now.to] + distArr[now.to][i];
+                    boolean[] temp = new boolean[2];
+                    if (i == must1) temp[0] = true;
+                    else if (i == must2) temp[1] = true;
+                    pq.offer(new Sejun(now.to, i, minimumDist[i], temp));
+                }
             }
         }
     }
