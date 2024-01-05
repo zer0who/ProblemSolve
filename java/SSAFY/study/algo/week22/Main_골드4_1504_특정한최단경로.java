@@ -13,13 +13,11 @@ public class Main_골드4_1504_특정한최단경로 {
         int from;
         int to;
         int totalDist;
-        boolean[] havePassed;   // 반드시 지나야하는 두 점을 지났는지 체크할 필드
 
-        public Sejun(int from, int to, int totalDist, boolean[] havePassed) {
+        public Sejun(int from, int to, int totalDist) {
             this.from = from;
             this.to = to;
             this.totalDist = totalDist;
-            this.havePassed = havePassed;
         }
 
         @Override
@@ -31,13 +29,18 @@ public class Main_골드4_1504_특정한최단경로 {
     static int N, E;
     static int[][] distArr;
     static int must1, must2;
-    static int answer;
 
     public static void main(String[] args) throws IOException {
         init();
-        dijkstra();
-        if (answer == Integer.MAX_VALUE) System.out.println(-1);
-        else System.out.println(answer);
+        int startToM1 = dijkstra(1, must1);
+        int startToM2 = dijkstra(1, must2);
+        int mustDist = dijkstra(must1, must2); // 반드시 지나야하는 두 점 최소 거리
+        int m1ToDestination = dijkstra(must1, N);
+        int m2ToDestination = dijkstra(must2, N);
+
+        if (startToM1 == -1 || startToM2 == -1 || mustDist == -1 || m1ToDestination == -1 || m2ToDestination == -1) System.out.println(-1);
+        else if (must1 == 1 && must2 == N) System.out.println(mustDist);
+        else System.out.println(mustDist + Math.min(startToM1 + m2ToDestination, startToM2 + m1ToDestination));
     }
 
     static void init() throws IOException {
@@ -57,38 +60,31 @@ public class Main_골드4_1504_특정한최단경로 {
         st = new StringTokenizer(br.readLine());
         must1 = Integer.parseInt(st.nextToken());
         must2 = Integer.parseInt(st.nextToken());
-        answer = Integer.MAX_VALUE;
     }
 
-    static void dijkstra() {
+    static int dijkstra(int start, int end) {
         int[] minimumDist = new int[N+1];
         Arrays.fill(minimumDist, Integer.MAX_VALUE);
         PriorityQueue<Sejun> pq = new PriorityQueue<>();
         for (int i = 1; i < N+1; i++) {
-            if (distArr[1][i] == 0) continue;   // 출발점에서 이어지지 않은 곳은 패스
-            pq.offer(new Sejun(1, i, distArr[1][i], new boolean[2]));
-            minimumDist[i] = distArr[1][i];
+            if (distArr[start][i] == 0) continue;   // 출발점에서 이어지지 않은 곳은 패스
+            pq.offer(new Sejun(1, i, distArr[start][i]));
+            minimumDist[i] = distArr[start][i];
         }
 
         while (!pq.isEmpty()) {
             Sejun now = pq.poll();
-            System.out.println(Arrays.toString(minimumDist));
-            if (now.to == N) {
-                if (!(now.havePassed[0] && now.havePassed[1])) continue;    // 반드시 거쳐야하는 두 점을 안거쳤으면 다음 반복문으로
-                answer = Math.min(answer, now.totalDist);
-            }
-
+            if (now.to == end) return now.totalDist;
             for (int i = 1; i < N+1; i++) {
                 if (distArr[now.to][i] == 0) continue;
                 if (minimumDist[i] > minimumDist[now.to] + distArr[now.to][i]) {
                     minimumDist[i] = minimumDist[now.to] + distArr[now.to][i];
-                    boolean[] temp = new boolean[2];
-                    if (i == must1) temp[0] = true;
-                    else if (i == must2) temp[1] = true;
-                    pq.offer(new Sejun(now.to, i, minimumDist[i], temp));
+                    pq.offer(new Sejun(now.to, i, minimumDist[i]));
                 }
             }
         }
+
+        return -1;
     }
 
 }
