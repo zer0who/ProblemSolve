@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Main_골드5_3967_골드스타 {
+public class Main_골드5_3967_매직스타 {
 
     static char[][] magicStar;
     static List<int[]> blankAxis;   // 알파벳 채워야하는 곳
