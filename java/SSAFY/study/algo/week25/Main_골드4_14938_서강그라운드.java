@@ -33,11 +33,7 @@ public class Main_골드4_14938_서강그라운드 {
         int maxGet = Integer.MIN_VALUE;
         for (int i = 1; i < n+1; i++) {
             int tempMax = items[i]; // 얻을 수 있는 아이템의 최초 개수는 낙하 지점에 있는 아이템의 개수로
-            for (int j = 1; j < n+1; j++) {
-                if (i == j) continue;   // 본인 지역은 계산 패스
-                if (!dijkstra(i, j)) continue;   // 수색범위 밖이면 패스
-                tempMax += items[j];    // 수색범위 안이면 더해줌
-            }
+            tempMax += dijkstra(i);   // 수색범위 밖이면 패스
             maxGet = Math.max(maxGet, tempMax);
         }
         System.out.println(maxGet);
@@ -64,7 +60,7 @@ public class Main_골드4_14938_서강그라운드 {
         }
     }
 
-    static boolean dijkstra(int start, int end) {   // start부터 end까지 가는 최소 거리 계산
+    static int dijkstra(int start) {   // start부터 end까지 가는 최소 거리 계산
         int l = 0;  // start부터 end까지의 거리
         int[] cost = new int[n+1];
         Arrays.fill(cost, Integer.MAX_VALUE);
@@ -80,9 +76,7 @@ public class Main_골드4_14938_서강그라운드 {
 
         while (!pq.isEmpty()) {
             Edge now = pq.poll();
-            int nowFrom = now.from;
             int nowTo = now.to;
-            int nowLength = now.length;
 
             List<Edge> nextEdgeList = edgeList.get(nowTo);
             for (int i = 0; i < nextEdgeList.size(); i++) {
@@ -97,10 +91,13 @@ public class Main_골드4_14938_서강그라운드 {
             }
         }
 
-        l = cost[end];
-        if (l > m) return false;
+        int itemCount = 0;
+        for (int i = 1; i < n+1; i++) {
+            if (cost[i] > m || i == start) continue;
+            itemCount += items[i];
+        }
 
-        return true;
+        return itemCount;
     }
 
 }
