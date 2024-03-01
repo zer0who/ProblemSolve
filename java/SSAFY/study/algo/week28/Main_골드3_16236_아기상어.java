@@ -98,13 +98,7 @@ public class Main_골드3_16236_아기상어 {
         PriorityQueue<Fish> pq = new PriorityQueue<>(new Comparator<Fish>() {
             @Override
             public int compare(Fish o1, Fish o2) {
-                int o1Dist = Math.abs(shark.row - o1.row) + Math.abs(shark.col - o1.col);
-                int o2Dist = Math.abs(shark.row - o2.row) + Math.abs(shark.col - o2.col);
-                if (o1Dist == o2Dist) {   // 이동해야하는 거리가 같으면
-                    if (o1.row == o2.row) return o1.col - o2.col;   // 이동해야하는 거리 같으면서 같은 행(높이)에 있으면 왼쪽에 있는 물고기 먼저
-                    return o1.row - o2.row; // 더 높은 행에 있는 물고기 먼저
-                }
-                return o1Dist - o2Dist;
+                // compare 함수 다시 정의
             }
         });
         Queue<Shark> queue = new ArrayDeque<>();
@@ -122,19 +116,10 @@ public class Main_골드3_16236_아기상어 {
                     int nextCol = nowShark.col + dirCol[d];
                     if (isOuted(nextRow, nextCol) || isVisited[nextRow][nextCol] || map[nextRow][nextCol] > shark.size)
                         continue;  // 범위 밖이거나 방문한 곳, 상어보다 큰 물고기가 있는 곳이라면 continue
-                    if (map[nextRow][nextCol] != 0 && map[nextRow][nextCol] < nowShark.size) {  // 상어가 먹을 수 있는 물고기면 pq에 삽입
-                        pq.offer(new Fish(nextRow, nextCol, map[nextRow][nextCol]));
-                    }
-                    queue.offer(new Shark(nextRow, nextCol, nowShark.size, nowShark.eatCount, nowShark.time + 1));
-                    isVisited[nextRow][nextCol] = true;
+                    // pq에 먹이 넣는 로직 다시(현재 상어 위치에서 이동한 카운트만큼이 걸리는 거리임, 맨해튼 거리 x)
                 }
             }
-            if (pq.isEmpty()) break;    // 먹을 수 있는 먹이가 없으면 반복문 종료
-            Fish eatFish = pq.poll();
-            convertShark(eatFish);
-            map[eatFish.row][eatFish.col] = 0;
-            queue.offer(shark);
-            while (!pq.isEmpty()) pq.poll();    // pq 제일 앞의 먹이만 먹어야 하니까 나머지는 다 빼버림
+            // 먹이 먹는 로직 다시
         }
     }
 }
