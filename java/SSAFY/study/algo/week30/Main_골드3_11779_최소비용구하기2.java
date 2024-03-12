@@ -81,6 +81,7 @@ public class Main_골드3_11779_최소비용구하기2 {
             Bus now = pq.poll();
             int to = now.to;
             List<Bus> nextBusList = busList.get(to);
+            if (costArr[now.to] < now.cost) continue;
             for (int i = 0; i < nextBusList.size(); i++) {
                 Bus next = nextBusList.get(i);
                 if (costArr[next.to] > costArr[next.from] + next.cost) {
