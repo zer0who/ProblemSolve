@@ -19,7 +19,7 @@ public class Main_골드4_10830_행렬제곱 {
         int[][] answer = doPow(originMatrix, B);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                sb.append(answer[i][j]).append(" ");
+                sb.append(answer[i][j] % MOD).append(" ");  // B가 1인 경우 때문에 정답 출력 시에도 1000으로 나누어 주어야...
             }
             sb.append("\n");
         }
@@ -40,7 +40,7 @@ public class Main_골드4_10830_행렬제곱 {
         }
     }
 
-    static int[][] multiplyMatrix(int[][] inputMatrix1, int[][] inputMatrix2) { // 행렬 곱 -> aij = bik * bkj
+    static int[][] multiplyMatrix(int[][] inputMatrix1, int[][] inputMatrix2) { // 행렬 곱 -> aij = (bi1 * c1j) + (bi2 * c2j) + (bi3 * c3j) + ... + (bik * ckj)
         int[][] retMatrix = new int[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -54,7 +54,7 @@ public class Main_골드4_10830_행렬제곱 {
         return retMatrix;
     }
 
-    static int[][] doPow(int[][] matrix, long powerNumber) {
+    static int[][] doPow(int[][] matrix, long powerNumber) {    // 분할 정복을 이용한 거듭 제곱 그 자체(숫자에서 행렬로 바뀐 것 뿐)
         if (powerNumber == 1) return matrix;
 
         int[][] temp = doPow(matrix, powerNumber/2);
