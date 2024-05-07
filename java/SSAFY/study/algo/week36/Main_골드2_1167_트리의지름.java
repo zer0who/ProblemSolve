@@ -32,10 +32,13 @@ public class Main_골드2_1167_트리의지름 {
     
     public static void main(String[] args) throws IOException {
         init();
-        boolean[] initIsVisited = new boolean[V+1];
-        initIsVisited[1] = true;
-        dfs(1, initIsVisited, 1, 0);
-        System.out.println(maxDist + " " + maxNode);
+        boolean[] isVisited = new boolean[V+1];
+        isVisited[1] = true;
+        dfs(isVisited, 1, 0);
+        isVisited = new boolean[V+1];
+        isVisited[maxNode] = true;
+        dfs(isVisited, maxNode, 0);
+        System.out.println(maxDist);
     }
 
     static void init() throws IOException {
@@ -59,24 +62,19 @@ public class Main_골드2_1167_트리의지름 {
         maxNode = 0;
     }
 
-    static void dfs(int count, boolean[] isVisited, int fromNode, int dist) {   // 탐색한 노드 개수, 출발 노드, 쌓인 거리
-        if (count == V) {   // 모든 정점 다 탐색했으면 거리 더 늘어났는지 체크, 늘어났으면 갱신
-            if (dist > maxDist) {
-                maxDist = dist;
-                maxNode = fromNode;
-            }
-
-            return;
+    static void dfs(boolean[] isVisited, int fromNode, int dist) {   // 탐색한 노드 개수, 출발 노드, 쌓인 거리
+        if (dist > maxDist) {   // 거리 더 늘어났는지 체크, 늘어났으면 갱신
+            maxDist = dist;
+            maxNode = fromNode;
         }
-        System.out.println(count);
+
         for (int i = 0; i < edgeList.get(fromNode).size(); i++) {
             Edge nowEdge = edgeList.get(fromNode).get(i);
-            System.out.println(nowEdge);
             int nowTo = nowEdge.to;
             if (isVisited[nowTo]) continue;
             int nowWeight = nowEdge.weight;
             isVisited[nowTo] = true;
-            dfs(count + 1, isVisited, nowTo, dist + nowWeight);
+            dfs(isVisited, nowTo, dist + nowWeight);
             isVisited[nowTo] = false;
         }
     }
