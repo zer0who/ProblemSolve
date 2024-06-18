@@ -45,7 +45,7 @@ public class Main_골드3_2473_세용액 {
                 if (left >= right) break;
                 leftNumber = liquids[left];
                 rightNumber = liquids[right];
-                long tempSum = (long) baseNumber + (long) leftNumber + (long) rightNumber;
+                long tempSum = (long) baseNumber + (long) leftNumber + (long) rightNumber;  // 타입캐스팅 안해주면 int끼리의 덧셈은 int 범위에서 실행됨. 주의하자.
                 if (Math.abs(tempSum) < minDiff) {
                     minDiff = Math.abs(tempSum);
                     minDiffNumbers = new int[] {baseNumber, leftNumber, rightNumber};
