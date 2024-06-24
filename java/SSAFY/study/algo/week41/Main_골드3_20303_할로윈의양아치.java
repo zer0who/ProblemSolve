@@ -52,33 +52,28 @@ public class Main_골드3_20303_할로윈의양아치 {
     }
 
     static void halloween() {
-        Map<Integer, Integer> candies = new HashMap<>();
-        Map<Integer, Integer> friendCounts = new HashMap<>();
-
+        List<Integer> captainList = new ArrayList<>();  // 우선 대장들을 저장
+        captainList.add(0); // 인덱스 맞추기 위해서 숫자 하나 미리 넣어줌
+        int[] candies = new int[N + 1];
+        int[] friendCounts = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            int root = find(i);
-            candies.put(root, candies.getOrDefault(root, 0) + initCandies[i]);
-            friendCounts.put(root, friendCounts.getOrDefault(root, 0) + 1);
+            int captain = find(i);
+            if (i == captain) captainList.add(i);
+            candies[captain] += initCandies[i]; // 각 아이들의 대장 어린이에게 사탕 수 카운트해줌
+            friendCounts[captain]++;
         }
 
-        List<Integer> candyList = new ArrayList<>(candies.values());
-        List<Integer> countList = new ArrayList<>(friendCounts.values());
-
-        int groups = candyList.size();
-        int[][] dp = new int[groups + 1][K];
-
-        for (int i = 1; i <= groups; i++) {
-            int candy = candyList.get(i - 1);
-            int count = countList.get(i - 1);
+        int[][] dpArr = new int[captainList.size()][K]; // 여기서부터 Knapsack 알고리즘
+        int captainChild, friendCount, candy;
+        for (int i = 1; i < captainList.size(); i++) {
+            captainChild = captainList.get(i);
+            friendCount = friendCounts[captainChild];
+            candy = candies[captainChild];
             for (int j = 0; j < K; j++) {
-                if (j < count) {
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - count] + candy);
-                }
+                if (j < friendCount) dpArr[i][j] = dpArr[i-1][j];
+                else dpArr[i][j] = Math.max(dpArr[i-1][j], dpArr[i-1][j-friendCount] + candy);
             }
         }
-
-        System.out.println(dp[groups][K - 1]);
+        System.out.println(dpArr[captainList.size() - 1][K - 1]);
     }
 }
