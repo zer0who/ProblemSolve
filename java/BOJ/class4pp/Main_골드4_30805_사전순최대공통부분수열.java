@@ -12,14 +12,10 @@ public class Main_골드4_30805_사전순최대공통부분수열 {
 
     static int N, M;
     static int[] A, B;
-    static int maxValueIndexA, maxValueIndexB;  // 우선 두 배열 모두 가진 값 중 가장 큰 값의 인덱스를 저장
 
     public static void main(String[] args) throws IOException {
         init();
-        if (maxValueIndexA == -1) System.out.println(0);    // 공통으로 가진 수가 하나도 없으면 K = 0임
-        else {
-            findMaxCommonSubsequences();
-        }
+        findMaxCommonSubsequences();
     }
 
     static void init() throws IOException {
@@ -32,32 +28,19 @@ public class Main_골드4_30805_사전순최대공통부분수열 {
         B = new int[M];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) B[i] = Integer.parseInt(st.nextToken());
-
-        int tempMax = 0;
-        maxValueIndexA = -1;
-        maxValueIndexB = -1;
-        for (int i = 0; i < N; i++) {
-            if (tempMax >= A[i]) continue;
-            for (int j = 0; j < M; j++) {
-                if (B[j] == A[i]) {
-                    maxValueIndexA = i;
-                    maxValueIndexB = j;
-                    tempMax = A[i];
-                    break;
-                }
-            }
-        }
     }
 
     static void findMaxCommonSubsequences() {
         List<Integer> answer = new ArrayList<>();
-        answer.add(A[maxValueIndexA]);
+        int maxValueIndexA = -1;    // 두 배열 모두 가진 값 중 가장 큰 값의 인덱스를 저장
+        int maxValueIndexB = -1;
+
         int tempMax, startIndexA, startIndexB;
         while (true) {
             tempMax = 0;
             startIndexA = maxValueIndexA;
             startIndexB = maxValueIndexB;
-            for (int i = startIndexA+1; i < N; i++) {
+            for (int i = startIndexA+1; i < N; i++) {   // 이때까지 찾은 가장 큰 값의 인덱스 다음 수부터 탐색 시작
                 if (tempMax >= A[i]) continue;
                 for (int j = startIndexB+1; j < M; j++) {
                     if (B[j] == A[i]) {
