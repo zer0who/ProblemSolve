@@ -1,9 +1,7 @@
-package BOJ;
+package BOJ.silver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Main_실버5_11723_집합 {
 
