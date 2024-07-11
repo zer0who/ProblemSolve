@@ -1,4 +1,4 @@
-package SSAFY.study;
+package SSAFY.study.algo.week44;
 
 import java.io.BufferedReader;
 import java.io.IOException;
