@@ -34,7 +34,7 @@ public class Main_골드5_2294_동전2 {
         for (int i = 0; i < n; i++) { // 동전마다 최댓값 k까지 최소 개수로 만들 수 있는 경우를 계속 갱신
             nowCoin = coins[i];
             for (int j = nowCoin; j < k+1; j++) {
-                dpArr[j] = Math.min(dpArr[j], dpArr[j - nowCoin] + 1);
+
             }
         }
         if (dpArr[k] == maxValue) System.out.println(-1);
