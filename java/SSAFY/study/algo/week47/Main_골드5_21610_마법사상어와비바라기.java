@@ -50,7 +50,7 @@ public class Main_골드5_21610_마법사상어와비바라기 {
     }
 
     static void doMagic() { // 비바라기 시뮬레이션 실행
-        int dir, dist, cloudCount;  // cloudCount: 현재 라운드 시작 기점 구름 개수
+        int dir, dist;  // cloudCount: 현재 라운드 시작 기점 구름 개수
         Queue<int[]> rained;
         for (int i = 0; i < M; i++) {   // 모든 이동 명령에 대해 수행
             dir = moves[i][0];
@@ -79,10 +79,6 @@ public class Main_골드5_21610_마법사상어와비바라기 {
                 row += dirRow[dir];
                 col += dirCol[dir];
             }
-//            if (row < 0) row = (N + row % N) % N; // 범위를 벗어나는 이동에 대해서 처리
-//            else if (N <= row) row = row%N;
-//            if (col < 0) col = (N + col % N) % N;
-//            else if (N <= col) col = col%N;
             row = (row % N + N) % N;
             col = (col % N + N) % N;
 
@@ -124,14 +120,6 @@ public class Main_골드5_21610_마법사상어와비바라기 {
                 }
             }
         }
-
-//        for (int i = 0; i < N; i++) {
-//            for (int j = 0; j < N; j++) System.out.print(Arrays.toString(A[i][j]));
-//            System.out.println("");
-//        }
-//        System.out.println("=============");
-//        while(!clouds.isEmpty()) System.out.println(Arrays.toString(clouds.poll()));
-//        System.out.println("===================");
     }
 
 }
