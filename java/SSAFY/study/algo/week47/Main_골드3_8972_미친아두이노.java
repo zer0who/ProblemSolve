@@ -139,15 +139,15 @@ public class Main_골드3_8972_미친아두이노 {
     static void markCrazyArduinos(List<Arduino> tempArduinoList) {  // 모든 미친 아두이노가 동시에 움직인 후 터지는 아두이노 처리 및 보드에 표시
         List<Arduino> bombArduinoList = new ArrayList<>();
         int row, col;
-        for (Arduino crazyArduino : tempArduinoList) {
+        for (Arduino crazyArduino : tempArduinoList) {  // 터지는 아두이노 객체는 리스트에 담아주면서, 보드에 우선은 표시함
             row = crazyArduino.row;
             col = crazyArduino.col;
             if (board[row][col].equals("R")) bombArduinoList.add(new Arduino(row, col));
             board[row][col] = "R";
         }
-        for (Arduino bombArduino : bombArduinoList) board[bombArduino.row][bombArduino.col] = ".";
-        tempArduinoList.removeAll(bombArduinoList);
-        crazyArduinoList = tempArduinoList;
+        for (Arduino bombArduino : bombArduinoList) board[bombArduino.row][bombArduino.col] = ".";  // 터지는 아두이노가 있는 자리는 .으로 갱신
+        tempArduinoList.removeAll(bombArduinoList); // 터지는 아두이노 모두 삭제
+        crazyArduinoList = tempArduinoList; // 터지는 아두이노 모두 삭제된 아두이노 리스트로 갱신
     }
 
 }
