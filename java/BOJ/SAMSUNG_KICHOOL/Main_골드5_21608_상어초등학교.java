@@ -48,7 +48,7 @@ public class Main_골드5_21608_상어초등학교 {
             if (maxPreferenceList.size() == 1) markAxis = maxPreferenceList.get(0);    // 1번 규칙에서 배치할 좌석이 정해졌을 경우 좌석 배치
             else markAxis = findFinalAxis(maxPreferenceList);    // 1번에서 좌석 배치가 끝나지 않았을 경우 2, 3번 규칙 수행
             classRoom[markAxis[0]][markAxis[1]] = studentsNumber;
-            markedAxisList.add(markAxis);
+            markedAxisList.add(markAxis);   // 이건 약간 좀 어거지임. 처음부터 애초에 학생 번호랑 선호도를 따로 저장했으면 학생 번호로 탐색 가능했는데, 분리를 안해서 선호도 리스트랑 같은 순서를 가지는 리스트 가지고 학생 별 좋아하는 학생 탐색함
         }
         System.out.println(calcSatisfaction());
     }
