@@ -59,11 +59,41 @@ public class Main_16918_봄버맨 {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
-                sb.append(map[i][j]);
+                if (map[i][j] == -1) sb.append(".");
+                else sb.append("O");
             }
             sb.append("\n");
         }
         System.out.println(sb);
+    }
+
+    static void plantBomb(int round) {
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (map[i][j] == -1) map[i][j] = round;
+            }
+        }
+    }
+
+    static void bomb(int round) {
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (map[i][j] != round - 3) continue;
+                int nextRow, nextCol;
+                for (int d = 0; d < 4; d++) {   // 터지는 폭탄이면 인접한 칸들도 터트려야 함
+                    nextRow = i + dirRow[d];
+                    nextCol = j + dirCol[d];
+                    if (isOuted(nextRow, nextCol) || map[nextRow][nextCol] == round - 3) continue;    // 맵 범위 밖이거나 현재 시간에 터뜨려야 하면 폭탄이면 건너 뜀
+                    map[nextRow][nextCol] = -1;
+                }
+                map[i][j] = -1;
+            }
+        }
+    }
+
+    static boolean isOuted(int row, int col) {
+        if ((0 <= row && row < R) && (0 <= col && col < C)) return false;
+        return true;
     }
 
 }
