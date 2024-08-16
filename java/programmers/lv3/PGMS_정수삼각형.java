@@ -19,6 +19,7 @@ public class PGMS_정수삼각형 {
         dpArr[1][0] = dpArr[0][0] + triangle[1][0];
         dpArr[1][1] = dpArr[0][0] + triangle[1][1];
         // List<List<Integer>> dpList = new ArrayList<>();  // 왠지 모르겠는데, 리스트로 하니까 효율성 테스트에서 시간초과 났음. 배열로 고쳐서 해결함
+        // => 배열이라는 자료구조와 리스트라는 자료구조의 특성을 알아봄으로써 효율성 테스트 결과를 이해할 수 있었음
         // for (int i = 0; i < triangle.length; i++) dpList.add(new ArrayList<>());
         // dpList.get(0).add(triangle[0][0]);
         // dpList.get(1).add(dpList.get(0).get(0) + triangle[1][0]);
