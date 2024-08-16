@@ -18,7 +18,7 @@ public class PGMS_정수삼각형 {
         dpArr[0][0] = triangle[0][0];
         dpArr[1][0] = dpArr[0][0] + triangle[1][0];
         dpArr[1][1] = dpArr[0][0] + triangle[1][1];
-        // List<List<Integer>> dpList = new ArrayList<>();
+        // List<List<Integer>> dpList = new ArrayList<>();  // 왠지 모르겠는데, 리스트로 하니까 효율성 테스트에서 시간초과 났음. 배열로 고쳐서 해결함
         // for (int i = 0; i < triangle.length; i++) dpList.add(new ArrayList<>());
         // dpList.get(0).add(triangle[0][0]);
         // dpList.get(1).add(dpList.get(0).get(0) + triangle[1][0]);
