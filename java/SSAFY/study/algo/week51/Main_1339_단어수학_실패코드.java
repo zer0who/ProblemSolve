@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main_1339_단어수학 {
+public class Main_1339_단어수학_실패코드 {
 
     static int N;
     static String[] words;
