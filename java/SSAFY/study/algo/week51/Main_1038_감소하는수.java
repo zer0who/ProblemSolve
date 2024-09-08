@@ -16,7 +16,7 @@ public class Main_1038_감소하는수 {
         for (int i = 0; i <= 9; i++) {
             combination(0, 0, i+1, new boolean[10]);
         }
-        while (N > 0) {
+        while (!pq.isEmpty() && N > 0) {
             pq.poll();
             N--;
         }
