@@ -29,6 +29,9 @@ public class Main_14945_불장난 {
                 dpArr[i][j] = (dpArr[i-1][j] * 2 + dpArr[i-1][j-1] + dpArr[i-1][j+1]) % 10_007;
             }
         }
+        for (int i = 0; i < N+1; i++) {
+            System.out.println(Arrays.toString(dpArr[i]));
+        }
         int answer = 0;
         for (int i = 1; i < N; i++) answer = (answer + dpArr[N][i]) % 10_007;
         System.out.println(answer % 10_007);
