@@ -39,27 +39,29 @@ public class Main_12891_DNA비밀번호 {
         acgtMap.put('G', 0);
         acgtMap.put('T', 0);
         int fulfillCount = 0;   // A, C, G, T 만족하는 개수 카운트
-        char c;
-        for (int i = 0; i < P; i++) {   // 첫 글자부터 P개까지 a, c, g, t 개수 저장
-            c = dnaString.charAt(i);
-            if (!acgtMap.containsKey(c)) continue;  // A, C, G, T 외에는 체크 안함
-            acgtMap.put(c, acgtMap.get(c)+1);
-        }
-        for (char key : needACGT.keySet()) if (acgtMap.get(key) >= needACGT.get(key)) fulfillCount++;   // 충족하는 단어마다 충족 카운트 +1
-        int count = (fulfillCount == 4)? 1:0;   // 제일 첫 윈도우가 조건 충족하는 지 여부에 따라 0 or 1로 초기화
+        for (char key : needACGT.keySet()) if (needACGT.get(key) == 0) fulfillCount++;  // 0개 필요한 문자들은 미리 카운트+1
 
         char outChar, inChar;
+        for (int i = 0; i < P; i++) {   // 첫 글자부터 P개까지 a, c, g, t 개수 저장
+            inChar = dnaString.charAt(i);
+            acgtMap.put(inChar, acgtMap.get(inChar)+1);
+            if (acgtMap.get(inChar) == needACGT.get(inChar)) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
+        }
+        int count = (fulfillCount == 4)? 1:0;   // 제일 첫 윈도우가 조건 충족하는 지 여부에 따라 0 or 1로 초기화
+
         for (int i = P; i < S; i++) {
             inChar = dnaString.charAt(i);
-            if (acgtMap.containsKey(inChar)) {
-                acgtMap.put(inChar, acgtMap.get(inChar) + 1);
-                if (acgtMap.get(inChar) == needACGT.get(inChar)) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
-            }
+            acgtMap.put(inChar, acgtMap.get(inChar)+1);
+            if (acgtMap.get(inChar) == needACGT.get(inChar)) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
+//            System.out.println(acgtMap);
+//            System.out.println(fulfillCount);
             outChar = dnaString.charAt(i-P);
-            if (acgtMap.containsKey(outChar)) {
-                acgtMap.put(outChar, acgtMap.get(outChar) - 1);
-                if (acgtMap.get(outChar) == needACGT.get(outChar)-1) fulfillCount--;  // 조건 충족 카운트보다 딱 한 개만큼 작아졌다면 fullfillCount -1
-            }
+            if (acgtMap.get(outChar) == needACGT.get(outChar)) fulfillCount--;  // 조건 충족 카운트보다 딱 한 개만큼 작아졌다면 fullfillCount -1
+            acgtMap.put(outChar, acgtMap.get(outChar)-1);
+//            System.out.println(acgtMap);
+//            System.out.println(fulfillCount);
+//            System.out.println("=============");
+
             if (fulfillCount == 4) count++; // 조건 모두 충족한다면 count+1
         }
 
