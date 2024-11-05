@@ -45,18 +45,18 @@ public class Main_12891_DNA비밀번호 {
         for (int i = 0; i < P; i++) {   // 첫 글자부터 P개까지 a, c, g, t 개수 저장
             inChar = dnaString.charAt(i);
             acgtMap.put(inChar, acgtMap.get(inChar)+1);
-            if (acgtMap.get(inChar) == needACGT.get(inChar)) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
+            if (acgtMap.get(inChar).equals(needACGT.get(inChar))) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
         }
         int count = (fulfillCount == 4)? 1:0;   // 제일 첫 윈도우가 조건 충족하는 지 여부에 따라 0 or 1로 초기화
 
         for (int i = P; i < S; i++) {
             inChar = dnaString.charAt(i);
             acgtMap.put(inChar, acgtMap.get(inChar)+1);
-            if (acgtMap.get(inChar) == needACGT.get(inChar)) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
+            if (acgtMap.get(inChar).equals(needACGT.get(inChar))) fulfillCount++;    // 딱 조건 충족 개수가 됐을 때 fullfillCount +1
 //            System.out.println(acgtMap);
 //            System.out.println(fulfillCount);
             outChar = dnaString.charAt(i-P);
-            if (acgtMap.get(outChar) == needACGT.get(outChar)) fulfillCount--;  // 조건 충족 카운트보다 딱 한 개만큼 작아졌다면 fullfillCount -1
+            if (acgtMap.get(outChar).equals(needACGT.get(outChar))) fulfillCount--;  // 조건 충족 카운트보다 딱 한 개만큼 작아졌다면 fullfillCount -1
             acgtMap.put(outChar, acgtMap.get(outChar)-1);
 //            System.out.println(acgtMap);
 //            System.out.println(fulfillCount);
