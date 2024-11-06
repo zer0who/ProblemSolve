@@ -6,43 +6,36 @@ import java.io.InputStreamReader;
 
 public class Main_1662_압축 {
 
+    static int index;   // 확인할 인덱스
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
-        int index = 0;
-        String answer = "";
-        while (index < input.length()) {
-            String unzipped = unzip(input, index);
-            answer += unzipped;
-            while (index < input.length()) {
-                if (input.charAt(index) == ')') {
-                    index++;
-                    break;
-                }
+
+        System.out.println(unzip(input));   // 재귀 함수 실행
+    }
+
+    static int unzip(String input) {
+        int length = 0;
+        while (index < input.length()) {    //
+            char current = input.charAt(index); //
+
+            if (index + 1 < input.length() &&   // 주어진 문자의 끝이 아닌 문자이면서
+                    Character.isDigit(current) && input.charAt(index + 1) == '(') { // 현재 인덱스가 숫자이며, 다음 문자가 여는 괄호인 경우
+                int k = Integer.parseInt(String.valueOf(input.charAt(index)));  // 괄호 내의 숫자 길이에 곱해줄 현재 숫자 정수화
+                index += 2; // 여는 괄호 다음 숫자부터 수행하게
+
+                length += k * unzip(input); // 괄호 내의 문자에 대해 재귀 수행, 길이를 현재 숫자와 곱해줌
+            } else if (current == ')') {    // 기저, 닫는 괄호인 경우 다음 인덱스로 늘려주고 지금까지 센 길이 반환
+                index++;
+                return length;
+            } else {    // 다음 문자가 괄호 여는 게 아닌 경우이며 숫자라면 길이+1, 인덱스+1
+                length++;
                 index++;
             }
         }
-        System.out.println(answer.length());
-    }
 
-    static String unzip(String input, int startIndex) {
-        String temp = "";
-        for (int i = startIndex; i < input.length(); i++) {  // 현재 시작 인덱스부터 시작하여서
-            if (i < input.length()-1 && input.charAt(i + 1) == '(') {   // 현재 숫자 다음 문자가 (인 경우
-                int repeater = Integer.parseInt(String.valueOf(input.charAt(i)));
-                if (repeater == 0) return temp;  // 근데 괄호 앞에 숫자가 0이면 빈 문자열로
-
-                String t = unzip(input, i+2);
-                String t2 = t;
-                for (int j = 0; j < repeater-1; j++) t += t2;   // 현재 숫자 횟수만큼 문자열 연속되게 만들어줌
-
-                return temp + t;
-            }
-            if (input.charAt(i) == ')') return temp;    // 기저, ) 를 만난 경우, temp를 리턴해줌
-            if (input.charAt(i) != '(') temp += String.valueOf(input.charAt(i));    // 그 외의 경우는 temp에 문자를 계속 쌓아줌.
-        }
-
-        return temp;
+        return length;  // 최종 길이 반환
     }
 
 }
