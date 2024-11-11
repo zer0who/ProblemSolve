@@ -56,7 +56,6 @@ public class Main_24513_좀비바이러스 {
             for (int i = 0; i < hourVirusCounts; i++) { // 해당 시간의 바이러스 개수만큼 수행
                 now = virusQueue.poll();
                 if (map[now[0]][now[1]] == 3) {
-//                    System.out.println("3인 곳: " + Arrays.toString(now));
                     continue; // 해당 바이러스가 퍼진 이후 이전 시간대에 다른 바이러스도 겹쳐 3번 바이러스가 됐다면 건너 뜀
                 }
 
@@ -69,20 +68,8 @@ public class Main_24513_좀비바이러스 {
                     if (spreadVirus(nextRow, nextCol, now[2], now[3])) virusQueue.offer(new int[] {nextRow, nextCol, now[2], nowHour+1});
                 }
             }
-//            System.out.println(Arrays.toString(virusCount));
             nowHour++; // 시간 +1
         }
-//        for (int i = 0; i < N; i++) System.out.println(Arrays.toString(map[i]));
-//        System.out.println("================");
-//        for (int i = 0; i < N; i++) {
-//            for (int j = 0; j < M; j++) System.out.print(spreadMap[i][j][0] + " ");
-//            System.out.println("");
-//        }
-//        System.out.println("===============");
-//        for (int i = 0; i < N; i++) {
-//            for (int j = 0; j < M; j++) System.out.print(spreadMap[i][j][1] + " ");
-//            System.out.println("");
-//        }
 
 
         System.out.println(virusCount[0] + " " + virusCount[1] + " " + virusCount[2]);
