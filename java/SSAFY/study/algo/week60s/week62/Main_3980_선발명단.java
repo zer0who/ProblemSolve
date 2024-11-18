@@ -17,7 +17,7 @@ public class Main_3980_선발명단 {
         int T = Integer.parseInt(br.readLine());
         for (int t = 0; t < T; t++) {
             init(br);
-            setPosition(0, new boolean[11], new int[11]);
+            setPosition(0, new boolean[11], 0);
             sb.append(maxAbilitySum).append("\n");
         }
         System.out.println(sb);
@@ -33,11 +33,8 @@ public class Main_3980_선발명단 {
         maxAbilitySum = 0;
     }
 
-    static void setPosition(int nowPosition, boolean[] isSelectedPlayer, int[] abilities) { // nowPosition: 현재 설정할 포지선, isSelectedPlayer: 이미 포지션 정해진 선수인지 여부, abilities: 각 포지션 별 능력치
+    static void setPosition(int nowPosition, boolean[] isSelectedPlayer, int abilitySum) { // nowPosition: 현재 설정할 포지선, isSelectedPlayer: 이미 포지션 정해진 선수인지 여부, abilities: 각 포지션 별 능력치
         if (nowPosition == 11) {    // 기저, 모든 선수 배치가 끝난 경우
-            int abilitySum = 0;
-            for (int i = 0; i < 11; i++) abilitySum += abilities[i];
-
             maxAbilitySum = Math.max(maxAbilitySum, abilitySum);
             return;
         }
@@ -49,10 +46,8 @@ public class Main_3980_선발명단 {
             if (nowPlayer[nowPosition] == 0) continue;  // 현재 선수가 해당 포지션에서의 능력치가 0인 경우 배치 안함
 
             isSelectedPlayer[i] = true;
-            abilities[i] = nowPlayer[nowPosition];
-            setPosition(nowPosition+1, isSelectedPlayer, abilities);
+            setPosition(nowPosition+1, isSelectedPlayer, abilitySum + nowPlayer[nowPosition]);
             isSelectedPlayer[i] = false;
-            abilities[i] = 0;
         }
     }
 
