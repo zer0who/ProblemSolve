@@ -36,9 +36,9 @@ public class Main_1913_달팽이 {
         int nowCol = N/2;
         while (true) {
             snail[nowRow][nowCol] = nowNumber;
+            if (nowNumber == findingNumber) findingAxis = new int[] {nowRow+1, nowCol+1};
             if (nowNumber == N*N) break;    // 종료 조건
 
-            if (nowNumber == findingNumber) findingAxis = new int[] {nowRow+1, nowCol+1};
             if (isOuted(nowRow+dirRow[dir], nowCol+dirCol[dir], offset)) {
                 if (dir == 0) offset--; // 방향 한 바퀴 회전 마다 껍질 크기 늘려 줌
                 dir = (dir+1) % 4;    // 방향 바꿀 조건 발생 시 방향 변경
