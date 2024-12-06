@@ -3,14 +3,11 @@ package SSAFY.study.algo.week60s.week65;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main_23563_벽타기 {
 
-    static class Lucio {
+    static class Lucio implements Comparable<Lucio> {
         int row;
         int col;
         int time;   // 이동한 시간
@@ -19,6 +16,11 @@ public class Main_23563_벽타기 {
             this.row = row;
             this.col = col;
             this.time = time;
+        }
+
+        @Override
+        public int compareTo(Lucio l) { // 시간 오름차순 정렬
+            return this.time - l.time;
         }
     }
 
@@ -56,7 +58,7 @@ public class Main_23563_벽타기 {
 
     static void doMove(int[] start) {
         int minTime = Integer.MAX_VALUE;
-        Queue<Lucio> q = new ArrayDeque<>();
+        PriorityQueue<Lucio> q = new PriorityQueue<>();
         int[][] isVisited = new int[H][W];  // 각 칸까지 이동하는데 걸리는 최소 시간 저장
         for (int i = 0; i < H; i++) Arrays.fill(isVisited[i], Integer.MAX_VALUE);
         q.offer(new Lucio(start[0], start[1], 0));
@@ -70,7 +72,7 @@ public class Main_23563_벽타기 {
             if (map[now.row][now.col] == 'E') {   // 도착점에 도착한 경우
                 minTime = Math.min(minTime, now.time);
                 isVisited[now.row][now.col] = minTime;
-                continue;
+                break;
             }
 
             boolean isNowNextToWall = isNextToWall(now.row, now.col, dirRow, dirCol); // 현재 칸이 벽에 인접한 칸인 지 여부 저장
