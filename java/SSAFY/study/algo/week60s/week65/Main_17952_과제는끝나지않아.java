@@ -62,13 +62,9 @@ public class Main_17952_과제는끝나지않아 {
                 index++;
             }
 
-//            if (nowSubject.needTime == 0) break;    // 시간 안에 모든 과제를 다 수행했으면 반복문 종료
-
             nowSubject.needTime--;
             if (nowSubject.needTime == 0) score += nowSubject.score;    // 해당 과제를 모두 끝냈다면 점수얻음
             N--;    // 남은 시간 감소 처리
-//            System.out.println(stack);
-//            System.out.println(nowSubject);
         }
 
         System.out.println(score);
