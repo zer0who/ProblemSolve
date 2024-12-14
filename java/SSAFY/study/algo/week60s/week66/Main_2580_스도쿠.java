@@ -9,8 +9,6 @@ import java.util.StringTokenizer;
 
 public class Main_2580_스도쿠 {
 
-    static int[] dirRow = new int[] {-1, 0, 1, 0};  // 상 좌 하 우
-    static int[] dirCol = new int[] {0, -1, 0, 1};
     static int[][] board;
     static boolean isCompleted; // 스도쿠 완성됐는 지 여부 저장하는 변수
     static StringBuilder sb;
