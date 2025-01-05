@@ -33,9 +33,9 @@ public class Main_2504_괄호의값 {
             } else {
                 if (parenthesesStack.isEmpty() || !isRightParentheses(parenthesesStack.peek(), c)) return 0; // 불가능한 경우 바로 0반환
 
-                parenthesesValue += tempValue;
+                if ( (c == ')' && input.charAt(i-1) == '(') || (c == ']' && input.charAt(i-1) == '[') ) parenthesesValue += tempValue;  // 분배법칙? 느낌으로다가 밖에 둘러싸고 있는 값이 안에 곱해진다고 생각하고 더해줌. 근데 중복으로 값이 더해지는 문제가 발생하므로 바로 괄호가 닫히는 경우에만 더해줘야 함.
                 parenthesesStack.pop(); // 괄호쌍에 해당하는 여는 괄호 뽑아냄
-                tempValue /= ( (c == ')')? 2:3 );   // 사용한 괄호의 값만큼 임시값 나눠줌
+                tempValue /= (c == ')')? 2:3;   // 사용한 괄호의 값만큼 임시값 나눠줌
             }
         }
 
