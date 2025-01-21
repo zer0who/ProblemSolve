@@ -3,101 +3,50 @@ package SSAFY.study.algo.week70s.week71;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Main_14725_개미굴 {
 
     static class Room {
-        String roomName;    // 현재 방의 정보
-        Room parent; // 부모 방의 정보
-        int depth;
+        String name;
+        Map<String, Room> children = new TreeMap<>();
 
-        public Room(String roomName, Room parent, int depth) {
-            this.roomName = roomName;
-            this.parent = parent;
-            this.depth = depth;
+        Room(String name) {
+            this.name = name;
         }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true; // 같은 객체 참조인지 확인
-            if (o == null || getClass() != o.getClass()) return false; // 타입 확인
-            Room r = (Room) o;
-            return depth == r.depth &&
-                    Objects.equals(roomName, r.roomName) && // 문자열 비교는 equals 사용
-                    Objects.equals(parent, r.parent); // 부모 비교도 equals 사용
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(roomName, parent, depth); // 해시 코드 생성
-        }
-
-        @Override
-        public String toString() { return "방 정보 : " + this.roomName + " 깊이 : " + this.depth; }
     }
-
-    static int N;
-    static List<List<Room>> roomList;
-    static Map<Room, Integer> roomMap;  // 각 방에 번호를 부여해서 저장한 맵
-    static Map<Integer, Room> roomNumberMap;    // 반대로 방의 번호를 키로 가지고 방 정보를 value로 가지는 맵
 
     public static void main(String[] args) throws IOException {
-        init();
-//        System.out.println(roomMap);
-//        for (int i = 0; i < roomList.size(); i++) System.out.println(roomList.get(i));
-        boolean[] isPrinted = new boolean[roomList.size()];
-        for (int i = 0; i < roomList.size(); i++) if (roomNumberMap.get(i).depth == 1) printRooms(roomNumberMap.get(i), isPrinted);  // 깊이 1인 곳에서만 재귀 출발하도록 함
-    }
-
-    static void init() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        roomList = new ArrayList<>();
-        roomMap = new HashMap<>();
-        roomNumberMap = new HashMap<>();
+        int N = Integer.parseInt(br.readLine());
+        Room root = new Room(""); // 루트 노드 생성
 
-        String[] inputLines = new String[N];
-        String inputLine;
-        for (int i = 0; i < N; i++) {   // 우선 방 정보들 다 입력받기
-            inputLine = br.readLine();
-            inputLine = inputLine.substring(2, inputLine.length());
-            inputLines[i] = inputLine;
-        }
-        Arrays.sort(inputLines);    // 먼저 사전 순 정렬 수행
+        for (int i = 0; i < N; i++) {   // 입력 처리 및 트리 구성
+            String[] path = br.readLine().split(" ");
+            int depth = Integer.parseInt(path[0]); // 깊이 정보
+            Room current = root;
 
-        int roomNumber = 0; // 1번 방부터 카운트해서 각 방에 번호를 매겨줄 때 사용하는 변수
-        for (int i = 0; i < N; i++) {
-            Room parentRoomInfo = new Room("", null, 0);
-
-            String[] rooms = inputLines[i].split(" ");
-            String roomInfo;
-            for (int j = 1; j <= rooms.length; j++) {
-                roomInfo = rooms[j-1];
-                Room r = new Room(roomInfo, parentRoomInfo, j);
-                if (!roomMap.containsKey(r)) {  // 처음 입력받는 방이라면 맵에 저장하고 방 개수도 +1해줌
-                    roomMap.put(r, roomNumber);
-                    roomNumberMap.put(roomNumber, r);
-                    roomList.add(new ArrayList<>());
-                    roomNumber++;
-                }
-                parentRoomInfo = r; // 부모 방 현재 방으로 갱신
-                if (j != 1) roomList.get(roomMap.get(r.parent)).add(r);   // 깊이 1인 방 제외하고 부모 방의 리스트에 저장
+            for (int j = 1; j <= depth; j++) {
+                String room = path[j];
+                current.children.putIfAbsent(room, new Room(room)); // 현재 노드의 자식 중 room이 없다면 새로 추가
+                current = current.children.get(room);   // 현재 노드를 자식 노드로 이동
             }
         }
+
+        for (String childName : root.children.keySet()) {   // 루트 노드의 자식들 순회하며 출력
+            printTree(root.children.get(childName), "");
+        }
     }
 
-    static void printRooms(Room now, boolean[] isPrinted) {
-        if (isPrinted[roomMap.get(now)]) return;
-
-        String offset = "";
-        for (int i = 0; i < now.depth-1; i++) offset += "--";
-        System.out.println(offset + "" + now.roomName);
-        isPrinted[roomMap.get(now)] = true;
-
-        int nowRoomNumber = roomMap.get(now);
-        List<Room> childRoomList = roomList.get(nowRoomNumber);
-        for (Room c : childRoomList) printRooms(c, isPrinted);
+    // 트리 출력 함수
+    static void printTree(Room room, String offset) {
+        if (!room.name.isEmpty()) { // 루트 노드는 출력하지 않음
+            System.out.println(offset + room.name);
+        }
+        for (Room child : room.children.values()) {
+            printTree(child, offset + "--");
+        }
     }
 
 }
