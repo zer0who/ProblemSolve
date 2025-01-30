@@ -46,7 +46,7 @@ public class Main_1106_호텔 {
         N = Integer.parseInt(st.nextToken());
         minCost = Integer.MAX_VALUE;
 
-        isChecked = new int[1_101];
+        isChecked = new int[1_101]; // 왜 1100이냐? => 1000으로 하면 1원에 3명 가능할 때 딱 999명 채운 다음에 1002명을 채우는 경우를 고려 못해줌
         Arrays.fill(isChecked, Integer.MAX_VALUE);
         costAndCustomerList = new ArrayList<>();
         costAndCustomersPq = new PriorityQueue<>();
