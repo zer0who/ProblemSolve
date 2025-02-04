@@ -62,7 +62,7 @@ public class Main_1106_호텔 {
             costAndCustomersPq.offer(costAndCustomerList.get(costAndCustomerList.size()-1));
             if (customer >= C) minCost = Math.min(minCost, cost);
         }
-        Collections.sort(costAndCustomerList);  // 기준에 따라 정렬
+//        Collections.sort(costAndCustomerList);  // 기준에 따라 정렬
     }
 
     static void calcMinCostToGetCustomer() {
