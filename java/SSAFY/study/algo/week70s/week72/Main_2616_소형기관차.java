@@ -33,10 +33,6 @@ public class Main_2616_소형기관차 {
     }
 
     static void calcMaxPassenger() {    // start: 시작 칸 번호, count: 배정한 기관차 수
-        // 35 75 125 135 165 210 270
-        // 0  75 90  90  130 130 235
-        // 0  75 90  135 135 190 240
-
         int[][] dpArr = new int[3][N];
         for (int i = 0; i < N; i++) {    // 첫 기관차가 끌 수 있는 최대 칸 수만큼의 차량들에 대해
             if (i < carLimit) dpArr[0][i] = Math.max(dpArr[0][Math.max(0, i-1)], passengers[i]); // 최대로 끌 수 있는 차량 칸보다 적은 수에서는 이때까지 끌 수 있는 누적합 바로 저장
